@@ -25,3 +25,4 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.opt.scrolloff = 10
 vim.opt.confirm = true
+vim.opt.laststatus = 0
