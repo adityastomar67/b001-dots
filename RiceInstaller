@@ -67,9 +67,9 @@ welcome() {
 
     printf "%b" "${BLD}${CGR}This script will install my dotfiles and this is what it will do:${CNC}
 
-  ${BLD}${CGR}[${CYE}i${CGR}]${CNC} 2 Repositories will be installed. ${CBL}gh0stzk-dotfiles${CNC} and ${CBL}Chaotic-Aur${CNC}
+  ${BLD}${CGR}[${CYE}i${CGR}]${CNC} 2 Repositories will be installed. ${CBL}b001-dotfiles${CNC} and ${CBL}Chaotic-Aur${CNC}
   ${BLD}${CGR}[${CYE}i${CGR}]${CNC} Check necessary dependencies and install them
-  ${BLD}${CGR}[${CYE}i${CGR}]${CNC} Download my dotfiles in ${HOME}/dotfiles
+  ${BLD}${CGR}[${CYE}i${CGR}]${CNC} Download my dotfiles in ${HOME}/.config/gh0stzk
   ${BLD}${CGR}[${CYE}i${CGR}]${CNC} Backup of possible existing configurations (bspwm, polybar, etc...)
   ${BLD}${CGR}[${CYE}i${CGR}]${CNC} Install my configuration
   ${BLD}${CGR}[${CYE}i${CGR}]${CNC} Enabling MPD service (Music player daemon)
@@ -101,7 +101,7 @@ add_gh0stzk_repo() {
     repo_name="gh0stzk-dotfiles"
     sleep 2
 
-    printf "%b\n" "${BLD}${CYE}Installing ${CBL}${repo_name}${CYE} repository...${CNC}"
+    printf "%b\n" "${BLD}${CYE}Installing ${CBL}b001-dotfiles${CYE} repository...${CNC}"
 
     # Check if repository already exists in pacman.conf
     if ! grep -q "\[${repo_name}\]" /etc/pacman.conf; then
@@ -160,7 +160,7 @@ install_dependencies() {
     sleep 2
 
     sudo pacman -Syy
-    dependencies="alacritty base-devel bat brightnessctl bspwm clipcat dunst eza feh fzf thunar tumbler gvfs-mtp firefox geany git imagemagick jq jgmenu kitty libwebp maim mpc mpd mpv neovim xcolor ncmpcpp npm pamixer pacman-contrib papirus-icon-theme picom playerctl polybar lxsession python-gobject redshift rofi rustup sxhkd xclip xdg-user-dirs xdo xdotool xsettingsd xorg-xdpyinfo xorg-xkill xorg-xprop xorg-xrandr xorg-xsetroot xorg-xwininfo yazi zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting ttf-inconsolata ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-terminus-nerd ttf-ubuntu-mono-nerd webp-pixbuf-loader"
+    dependencies="alacritty base-devel bat brightnessctl bspwm clipcat dunst eza feh fzf thunar tumbler gvfs-mtp firefox geany git imagemagick jq jgmenu kitty libwebp maim mpc mpd mpv neovim xcolor ncmpcpp npm pamixer pacman-contrib papirus-icon-theme picom playerctl polybar lxsession python-gobject redshift rofi rustup sxhkd xclip xdg-user-dirs xdo xdotool xsettingsd xorg-xdpyinfo xorg-xkill xorg-xprop xorg-xrandr xorg-xsetroot xorg-xwininfo yazi zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting ttf-inconsolata ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-terminus-nerd ttf-ubuntu-mono-nerd webp-pixbuf-loader lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings"
 
     # Arrays temporales
     failed_deps=""
@@ -496,6 +496,10 @@ configure_services() {
     # User-level MPD Service
     printf "%b\n" "${BLD}${CYE}Enabling user MPD service...${CNC}"
     systemctl --user enable --now mpd.service
+
+    # Login Manager
+    printf "%b\n" "${BLD}${CYE}Enabling user LightDM service...${CNC}"
+    sudo systemctl enable lightdm.service
 
     # User-level ArchUpdates
     printf "%b\n" "${BLD}${CYE}Enabling user ArchUpdates service...${CNC}"
